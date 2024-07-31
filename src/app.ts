@@ -5,6 +5,7 @@ import { authMiddleware } from "./middleware/auth";
 import { loggingMiddleware } from "./middleware/logging";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swagger";
+import { ErrorRequestHandler } from "express";
 
 // SOLID: Single Responsibility Principle
 // This class is responsible for setting up and configuring the Express application
@@ -39,12 +40,18 @@ class App {
     });
 
     // Error handling middleware
-    this.app.use(
-      (err: Error, req: Request, res: Response, next: NextFunction) => {
-        console.error(err.stack);
-        res.status(500).send("Something went wrong");
-      }
-    );
+    const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+      console.error(err.stack);
+      res.status(500).json({
+        error: "Internal Server Error",
+        message:
+          process.env.NODE_ENV === "production"
+            ? "An unexpected error occurred"
+            : err.message,
+      });
+    };
+
+    this.app.use(errorHandler);
   }
 }
 
