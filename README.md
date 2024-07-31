@@ -47,7 +47,7 @@ npm run dev
 - PostgreSQL
 - Joi (for validation)
 
-## Features (To be implemented)
+## Features
 
 - CRUD operations for products
 - CRUD operations for orders
@@ -55,6 +55,38 @@ npm run dev
 - Error handling
 - Database interactions using Sequelize
 
+## API Documentation
+
+API documentation is available via Swagger UI at `/api-docs` when running the server.
+
+## Deployment
+
+### Docker
+
+To build and run the application using Docker:
+
+1. Build the Docker image:
+
+```bash
+docker build -t ecommerce-api .
+```
+
+2. Run the container:
+
+```bash
+docker run -p 3000:3000 ecommerce-api
+```
+
+The API will be available at `http://localhost:3000`.
+
+## Continuous Integration
+
+This project uses GitHub Actions for continuous integration. The CI pipeline runs on push to the main branch and on pull requests. It includes building the project and running tests.
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
 ## License
 
-This project is licensed under the MIT License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
