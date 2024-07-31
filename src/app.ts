@@ -1,6 +1,8 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import productRoutes from "./routes/productRoutes";
 import orderRoutes from "./routes/orderRoutes";
+import { authMiddleware } from "./middleware/auth";
+import { loggingMiddleware } from "./middleware/logging";
 
 // SOLID: Single Responsibility Principle
 // This class is responsible for setting up and configuring the Express application
@@ -10,12 +12,18 @@ class App {
   constructor() {
     this.app = express();
     this.config();
+    this.middleware();
     this.routes();
   }
 
   private config(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+  }
+
+  private middleware(): void {
+    this.app.use(loggingMiddleware);
+    this.app.use("/api", authMiddleware);
   }
 
   private routes(): void {
