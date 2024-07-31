@@ -10,5 +10,6 @@ router.get("/", orderController.getAllOrders.bind(orderController));
 router.get("/:id", orderController.getOrderById.bind(orderController));
 router.put("/:id", orderController.updateOrder.bind(orderController));
 router.delete("/:id", orderController.deleteOrder.bind(orderController));
+router.post("/:id/process", orderController.processOrder.bind(orderController));
 
 export default router;

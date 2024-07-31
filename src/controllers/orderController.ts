@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { orderService } from "../services/orderService";
 import Joi from "joi";
+import { orderProcessingService } from "../services/orderProcessingService";
 
 export class OrderController {
   private createOrderSchema = Joi.object({
@@ -76,6 +77,16 @@ export class OrderController {
       }
     } catch (error) {
       res.status(500).json({ error: "Internal server error" });
+    }
+  }
+
+  async processOrder(req: Request, res: Response) {
+    try {
+      const orderId = parseInt(req.params.id);
+      const processedOrder = await orderProcessingService.processOrder(orderId);
+      res.json(processedOrder);
+    } catch (error) {
+      res.status(500).json({ error: "Error processing order" });
     }
   }
 }
