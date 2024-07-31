@@ -3,6 +3,8 @@ import productRoutes from "./routes/productRoutes";
 import orderRoutes from "./routes/orderRoutes";
 import { authMiddleware } from "./middleware/auth";
 import { loggingMiddleware } from "./middleware/logging";
+import swaggerUi from "swagger-ui-express";
+import { specs } from "./config/swagger";
 
 // SOLID: Single Responsibility Principle
 // This class is responsible for setting up and configuring the Express application
@@ -27,6 +29,7 @@ class App {
   }
 
   private routes(): void {
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
     this.app.use("/api/products", productRoutes);
     this.app.use("/api/orders", orderRoutes);
 
