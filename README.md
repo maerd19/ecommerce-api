@@ -4,8 +4,8 @@ This project is a RESTful API for a simple e-commerce platform built with Node.j
 
 ## Prerequisites
 
-- Node.js (v14 or later)
-- PostgreSQL
+- Docker
+- Docker Compose
 
 ## Getting Started
 
@@ -16,21 +16,29 @@ git clone https://github.com/yourusername/ecommerce-api.git
 cd ecommerce-api
 ```
 
-2. Install dependencies:
+2. Start the application:
+
+```bash
+docker-compose up --build
+```
+
+3. The server will start on http://localhost:3000.
+
+## Development
+
+For development with hot-reloading:
+
+1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Set up your PostgreSQL database and update the connection string in `src/config/database.ts`.
-
-4. Run the development server:
+2. Run the development server:
 
 ```bash
 npm run dev
 ```
-
-5. The server will start on `http://localhost:3000`.
 
 ## Scripts
 
@@ -46,6 +54,8 @@ npm run dev
 - Sequelize (ORM)
 - PostgreSQL
 - Joi (for validation)
+- Swagger (for API documentation)
+- Docker
 
 ## Features
 
@@ -83,10 +93,6 @@ The API will be available at `http://localhost:3000`.
 
 This project uses GitHub Actions for continuous integration. The CI pipeline runs on push to the main branch and on pull requests. It includes building the project and running tests.
 
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License.
