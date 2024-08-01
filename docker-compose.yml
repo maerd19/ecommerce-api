@@ -1,27 +1,32 @@
-version: "3.8"
-services:
-  api:
-    build: .
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      - DATABASE_URL=postgres://user:password@db:5432/ecommerce_db
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+version: "3.8" # Specifies the version of Docker Compose file format
 
-  db:
-    image: postgres:13
+services:
+  api: # Defines the service for your Node.js application
+    build: . # Builds the Docker image using the Dockerfile in the current directory
     ports:
-      - "5432:5432"
-    environment:
+      - "3000:3000" # Maps port 3000 from the container to port 3000 on the host
+    depends_on:
+      - db # Ensures that the 'db' service is started before this service
+    environment: # Sets environment variables for the application
+      - DB_NAME=ecommerce_db
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - DB_HOST=db # Uses the service name 'db' as the hostname
+      - DB_PORT=5432
+    volumes: # Defines volume mappings
+      - .:/usr/src/app # Mounts the current directory to /usr/src/app in the container
+      - /usr/src/app/node_modules # Anonymous volume to prevent overwriting node_modules
+
+  db: # Defines the service for the PostgreSQL database
+    image: postgres:13 # Uses the official PostgreSQL 13 image
+    ports:
+      - "5432:5432" # Maps PostgreSQL port to host
+    environment: # Sets environment variables for PostgreSQL
+      - POSTGRES_DB=ecommerce_db
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=ecommerce_db
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data # Persists database data
 
 volumes:
-  postgres_data:
+  postgres_data: # Defines a named volume for persisting PostgreSQL data

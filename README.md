@@ -1,11 +1,12 @@
 # E-commerce API
 
-This project is a RESTful API for a simple e-commerce platform built with Node.js, Express and PostgreSQL.
+This project is a RESTful API for a simple e-commerce platform built with Node.js, Express, and PostgreSQL.
 
 ## Prerequisites
 
-- Docker
-- Docker Compose
+- Node.js (v14 or later)
+- Docker and Docker Compose (for containerized development and deployment)
+- PostgreSQL (for local development without Docker)
 
 ## Getting Started
 
@@ -16,35 +17,54 @@ git clone https://github.com/yourusername/ecommerce-api.git
 cd ecommerce-api
 ```
 
-2. Start the application:
+2. Set up environment variables: Create a `.env` file in the project root and add the following:
 
 ```bash
-docker-compose up --build
+DB_NAME=ecommerce_db
+DB_USER=user
+DB_PASSWORD=password
+DB_HOST=localhost
+DB_PORT=5432
 ```
-
-3. The server will start on http://localhost:3000.
 
 ## Development
 
-For development with hot-reloading:
+### With Docker
 
-1. Install dependencies:
+1. Start the application:
+
+```bash
+npm run dev:docker
+```
+
+This will build and start both the API and PostgreSQL database in Docker containers.
+
+### With Docker
+
+1. Ensure you have a local PostgreSQL instance running with the credentials specified in your `.env` file.
+
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Run the development server:
+3. Run the development server:
 
 ```bash
 npm run dev
 ```
 
+The server will start on `http://localhost:3000`.
+
 ## Scripts
 
-- `npm run dev`: Start the development server with hot-reloading
+- `npm run dev`: Start the development server with hot-reloading (local PostgreSQL)
+- `npm run dev`:docker: Start the development environment using Docker
 - `npm run build`: Compile TypeScript to JavaScript
 - `npm start`: Run the compiled JavaScript in production
+- `npm test`: Run tests
+- `npm run` test:watch: Run tests in watch mode
 
 ## Technologies Used
 
@@ -73,18 +93,10 @@ API documentation is available via Swagger UI at `/api-docs` when running the se
 
 ### Docker
 
-To build and run the application using Docker:
-
-1. Build the Docker image:
+The application and database are containerized using Docker. To build and run:
 
 ```bash
-docker build -t ecommerce-api .
-```
-
-2. Run the container:
-
-```bash
-docker run -p 3000:3000 ecommerce-api
+docker-compose up --build
 ```
 
 The API will be available at `http://localhost:3000`.
