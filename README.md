@@ -39,7 +39,7 @@ npm run dev:docker
 
 This will build and start both the API and PostgreSQL database in Docker containers.
 
-### With Docker
+### Without Docker
 
 1. Ensure you have a local PostgreSQL instance running with the credentials specified in your `.env` file.
 
